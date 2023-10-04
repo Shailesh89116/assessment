@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import styles from "@/styles/Navbar.module.css";
+import Image from "next/image";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -26,10 +27,12 @@ const Navbar = () => {
         <div className={styles.navbar_right}>
           <ul className={styles.profileMenu}>
             <li className={styles.profileItem}>
-              <img
+              <Image
                 src={session?.user?.image || ""}
                 alt="User's Profile Image"
                 className={styles.profileImg}
+                width={100}
+                height={100}
               />
             </li>
             <li className={styles.profileItem}>{session?.user?.name}</li>

@@ -2,6 +2,7 @@ import React from "react";
 import styles from "@/styles/ProductCard.module.css";
 import ContentfulImage from "../ui/ContentfulImage";
 import Link from "next/link";
+import Image from "next/image";
 
 interface productProps {
   product: any;
@@ -16,7 +17,7 @@ const ProductCard: React.FC<productProps> = ({ product }) => {
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div>
-          <img className={styles.productImg} src={productImg.fields.file.url}/>
+        <Image src={productImg.fields.file.url} alt="Product Image" width={500} height={300} />
         </div>
         <div className={styles.product_title}>
           <h3 className={styles.title}>{title}<p className={styles.productid}>({productId})</p></h3>

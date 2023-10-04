@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.logo_inner{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgb(88, 86, 86);
+    margin: 5px;
+    padding: 10px;
+    font-size: larger;
+    border-radius: 5px;
+    cursor: pointer;
+    color: rgb(88, 86, 86);
+}
+
+

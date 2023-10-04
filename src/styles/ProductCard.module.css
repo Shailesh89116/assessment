@@ -1,0 +1,53 @@
+.container{
+
+}
+
+.wrapper{
+    width: 210px;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+.productImg{
+width: 90%;
+height: 60%;
+margin-bottom: 5px;
+
+}
+
+.product_title{
+    
+}
+
+.title{
+    color: grey;
+}
+
+.productid_container{
+
+}
+
+.productid{
+    color: rgb(53, 51, 51);
+    font-size: small;
+}
+
+.quantity_container{
+
+}
+
+.quantity{
+
+}
+
+.viewmore_container{
+text-decoration: none;
+}
+
+.viewmore{
+    text-decoration: none;
+    color: teal;
+}

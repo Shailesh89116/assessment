@@ -1,0 +1,68 @@
+.container{
+    border: 1px bold black;
+}
+
+.navbar_wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar_left{
+
+}
+
+.menuItems{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 20px;
+}
+
+.menuItem{
+    text-decoration: none;
+    cursor: pointer;
+    color: grey;
+    font-size: large;
+}
+
+.menuItem:hover{
+    color: rgb(54, 54, 54);
+}
+
+.navbar_right{
+    display: flex;
+    align-items: center;
+}
+
+.profileMenu{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin-right: 50px;
+}
+
+.profileImg{
+    height: 30px;
+    width: 30px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profileItem{
+    color: grey;
+    font-size: large;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.signOut_button{
+    list-style: none;
+    cursor: pointer;
+    margin: 10px;
+    color: grey;
+}
+
+.signOut_button:hover{
+    color: rgb(43, 42, 42);
+}

@@ -75,7 +75,7 @@ const options: Options = {
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
         console.log(node.data.target.fields);
         
-      if (node.data.target.sys.contentType.sys.id === 'videoEmbed') {
+      if (node.data.target.sys.contentType.sys.id === 'embeddedVideo') {
         return (
           <iframe
             height='400'

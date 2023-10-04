@@ -2,20 +2,27 @@ import React from "react";
 import styles from "@/styles/ProductCard.module.css";
 import ContentfulImage from "../ui/ContentfulImage";
 import Link from "next/link";
+import RichText from "../RichText";
 
 interface productProps {
   product: any;
 }
 
 const ProductCard: React.FC<productProps> = ({ product }) => {
-  const { title, productId, quantity, productImg } = product.fields;
+  const { title, productId, quantity, productImg, embeddedVideo } = product.fields;
 
-  console.log(title, productId, quantity, productImg.fields.file.url);
+  console.log(String(embeddedVideo.content[0].content[0].value));
+
+
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
         <div>
+        <iframe width="560" height="315" src={embeddedVideo.content[0].content[0].value} title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+        </div>
+        <div>
+          
           <img className={styles.productImg} src={productImg.fields.file.url}/>
         </div>
         <div className={styles.product_title}>
@@ -23,11 +30,7 @@ const ProductCard: React.FC<productProps> = ({ product }) => {
           <div className={styles.quantity_container}>
             <p className={styles.quantity}>{quantity}</p>
           </div>
-          <div className={styles.viewmore_container}>
-            <Link href={`/products/${productId}`} className={styles.viewmore}>
-              <p>View More</p>
-            </Link>
-          </div>
+          <RichText productDesc={product.fields.productDesc} />
         </div>
       </div>
     </div>

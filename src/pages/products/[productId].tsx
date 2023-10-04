@@ -5,7 +5,6 @@ import { Entry } from 'contentful';
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
 import ProductBody from '@/components/products/ProductBody';
-import ProductHeader from '@/components/products/ProductHeader';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getSession, useSession } from 'next-auth/react';

@@ -4,11 +4,11 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { Entry } from 'contentful';
 import { ParsedUrlQuery } from 'querystring'
 import React from 'react'
-import ProductBody from '@/components/products/ProductBody';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getSession, useSession } from 'next-auth/react';
 import ContentfulImage from '@/components/ui/ContentfulImage';
+import RichText from '@/components/RichText';
 
 
 interface Product {
@@ -26,6 +26,49 @@ interface ProductProps {
 interface productProps{
   product: any,
   preview : any
+}
+
+const Product : React.FC<productProps> = ({product, preview}) => {
+
+  console.log(product);
+  
+
+  const router = useRouter();
+
+  const {data : session} = useSession();
+
+  useEffect(() => {
+      async function checkSessionAndRedirect() {
+        const session = await getSession();
+  
+        if (!session) {
+          router.push('/auth'); // Redirect to the authentication page
+        }
+      }
+  
+      checkSessionAndRedirect();
+    }, [session, router]);
+
+  return (
+    <>
+    <Navbar/>
+    <div>
+    <div>
+        <div>
+            <h2>{product.fields.title || ""}</h2>
+            <ContentfulImage
+          alt={`Cover Image for ${product.fields.title || ""}`}
+          src={product.fields.productImg.fields.file.url || ""}
+          width={product.fields.productImg.fields.file.details.image.width || ""}
+          height={product.fields.productImg.fields.file.details.image.height || ""}
+        />
+        </div>
+      
+    </div>
+    <RichText productDesc={product.fields.productDesc} />
+    </div>
+    </>
+  )
 }
 
 
@@ -67,50 +110,6 @@ export const getStaticPaths: GetStaticPaths<any> = async () => {
     fallback: true,
   };
 };
-
-const Product : React.FC<productProps> = ({product, preview}) => {
-
-  console.log(product.fields);
-  
-
-  const router = useRouter();
-
-  const {data : session} = useSession();
-
-  useEffect(() => {
-      async function checkSessionAndRedirect() {
-        const session = await getSession();
-  
-        if (!session) {
-          router.push('/auth'); // Redirect to the authentication page
-        }
-      }
-  
-      checkSessionAndRedirect();
-    }, [session, router]);
-
-  return (
-    <>
-    <Navbar/>
-    <div>
-    <div>
-        <div>
-            <h2>{product.fields.title || ""}</h2>
-            <ContentfulImage
-          alt={`Cover Image for ${product.fields.title || ""}`}
-          src={product.fields.productImg.fields.file.url || ""}
-          width={product.fields.productImg.fields.file.details.image.width || ""}
-          height={product.fields.productImg.fields.file.details.image.height || ""}
-        />
-        </div>
-      
-    </div>
-      <ProductBody product={product}/>
-    </div>
-    </>
-  )
-}
-
 
 
 export default Product

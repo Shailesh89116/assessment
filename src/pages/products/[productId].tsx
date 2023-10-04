@@ -9,6 +9,7 @@ import ProductHeader from '@/components/products/ProductHeader';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getSession, useSession } from 'next-auth/react';
+import ContentfulImage from '@/components/ui/ContentfulImage';
 
 
 interface Product {
@@ -50,7 +51,18 @@ const Product : React.FC<productProps> = ({product, preview}) => {
     <>
     <Navbar/>
     <div>
-      <ProductHeader product={product}/>
+    <div>
+        <div>
+            <h2>{product.fields.title}</h2>
+            <ContentfulImage
+          alt={`Cover Image for ${product.fields.title}`}
+          src={product.fields.productImg.fields.file.url}
+          width={product.fields.productImg.fields.file.details.image.width}
+          height={product.fields.productImg.fields.file.details.image.height}
+        />
+        </div>
+      
+    </div>
       <ProductBody product={product}/>
     </div>
     </>

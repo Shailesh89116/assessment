@@ -43,6 +43,8 @@ const options: Options = {
     },
 
     [INLINES.ENTRY_HYPERLINK]: (node) => {
+        console.log(node.data.target.fields);
+        
       if (node.data.target.sys.contentType.sys.id === 'post') {
         return (
           <Link href={`/posts/${node.data.target.fields.slug}`}>
@@ -71,6 +73,8 @@ const options: Options = {
     },
 
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+        console.log(node.data.target.fields);
+        
       if (node.data.target.sys.contentType.sys.id === 'videoEmbed') {
         return (
           <iframe
@@ -87,6 +91,8 @@ const options: Options = {
     },
 
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
+        console.log(node.data.target.fields);
+        
       return (
         <ContentfulImage
           src={node.data.target.fields.file.url}

@@ -9,6 +9,9 @@ const ProductBody : React.FC<productBodyProps> = ({product}) => {
 
     const {productDesc} = product.fields
 
+    console.log(product.fields);
+    
+
   return (
     <div>
       <div className='mx-auto prose'>

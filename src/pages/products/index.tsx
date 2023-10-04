@@ -37,6 +37,8 @@ const Products : React.FC<productsProps> = ({products}) => {
     <div style={{display:"flex", alignItems:"center", gap:"10px", flexWrap:"wrap", margin:"10px", padding:"10px"}}>
       {
         products.map((product:any)=>(
+            
+            
             <ProductCard key={product.fields.productId} product={product}/>
         ))
       }

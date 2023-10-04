@@ -30,6 +30,9 @@ interface productProps{
 
 const Product : React.FC<productProps> = ({product, preview}) => {
 
+  console.log(product.fields);
+  
+
   const router = useRouter();
 
   const {data : session} = useSession();
@@ -52,12 +55,12 @@ const Product : React.FC<productProps> = ({product, preview}) => {
     <div>
     <div>
         <div>
-            <h2>{product.fields.title}</h2>
+            <h2>{product.fields.title || ""}</h2>
             <ContentfulImage
-          alt={`Cover Image for ${product.fields.title}`}
-          src={product.fields.productImg.fields.file.url}
-          width={product.fields.productImg.fields.file.details.image.width}
-          height={product.fields.productImg.fields.file.details.image.height}
+          alt={`Cover Image for ${product.fields.title || ""}`}
+          src={product.fields.productImg.fields.file.url || ""}
+          width={product.fields.productImg.fields.file.details.image.width || ""}
+          height={product.fields.productImg.fields.file.details.image.height || ""}
         />
         </div>
       
@@ -75,7 +78,7 @@ export const getStaticProps: GetStaticProps<ProductProps> = async ({ params, pre
   const { productId } = params as { productId: any };
   const response = await cfClient.getEntries<any>({
     content_type: 'products',
-    'fields.productId': productId,
+    'fields.productId': productId || "",
   });
 
   if (!response?.items?.length) {
@@ -99,7 +102,7 @@ export const getStaticProps: GetStaticProps<ProductProps> = async ({ params, pre
 export const getStaticPaths: GetStaticPaths<any> = async () => {
   const response = await client.getEntries<any>({ content_type: 'products' });
   const paths = response.items.map((item) => ({
-    params: { productId: String(item.fields.productId) }, // Ensure 'slug' matches your actual field name
+    params: { productId: String(item.fields.productId || "") }
   }));
 
   return {

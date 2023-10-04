@@ -1,11 +1,22 @@
-import React from 'react';
-import { BLOCKS, INLINES, MARKS, Node, Text, Inline, Block } from '@contentful/rich-text-types'; // Import necessary types
-import { documentToReactComponents, Options } from '@contentful/rich-text-react-renderer';
-import Link from 'next/link';
-import ContentfulImage from './ui/ContentfulImage';
+import React from "react";
+import {
+  BLOCKS,
+  INLINES,
+  MARKS,
+  Node,
+  Text,
+  Inline,
+  Block,
+} from "@contentful/rich-text-types";
+import {
+  documentToReactComponents,
+  Options,
+} from "@contentful/rich-text-react-renderer";
+import Link from "next/link";
+import ContentfulImage from "./ui/ContentfulImage";
 
 interface RichTextProps {
-  productDesc: any; // Use Node type for content
+  productDesc: any;
 }
 
 const options: Options = {
@@ -23,8 +34,8 @@ const options: Options = {
       if (Array.isArray(node.content)) {
         const hasCodeMark = node.content.some((item) => {
           return (
-            item.nodeType === 'text' &&
-            item.marks?.some((mark) => mark.type === 'code')
+            item.nodeType === "text" &&
+            item.marks?.some((mark) => mark.type === "code")
           );
         });
 
@@ -43,9 +54,7 @@ const options: Options = {
     },
 
     [INLINES.ENTRY_HYPERLINK]: (node) => {
-        console.log(node.data.target.fields);
-        
-      if (node.data.target.sys.contentType.sys.id === 'post') {
+      if (node.data.target.sys.contentType.sys.id === "post") {
         return (
           <Link href={`/posts/${node.data.target.fields.slug}`}>
             {node.data.target.fields.title}
@@ -56,14 +65,14 @@ const options: Options = {
 
     [INLINES.HYPERLINK]: (node) => {
       const textNode = node.content.find(
-        (item) => item.nodeType === 'text'
+        (item) => item.nodeType === "text"
       ) as Text;
 
       if (textNode) {
         const text = textNode.value;
 
         return (
-          <a href={node.data.uri} target='_blank' rel='noopener noreferrer'>
+          <a href={node.data.uri} target="_blank" rel="noopener noreferrer">
             {text}
           </a>
         );
@@ -73,13 +82,11 @@ const options: Options = {
     },
 
     [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-        console.log(node.data.target.fields);
-        
-      if (node.data.target.sys.contentType.sys.id === 'embeddedVideo') {
+      if (node.data.target.sys.contentType.sys.id === "embeddedVideo") {
         return (
           <iframe
-            height='400'
-            width='100%'
+            height="400"
+            width="100%"
             src={node.data.target.fields.embedUrl}
             title={node.data.target.fields.title}
             allowFullScreen={true}
@@ -91,19 +98,13 @@ const options: Options = {
     },
 
     [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        console.log(node.data.target.fields);
-        
       return (
         <ContentfulImage
           src={node.data.target.fields.file.url}
-          height={
-            node.data.target.fields.file.details.image.height
-          }
-          width={
-            node.data.target.fields.file.details.image.width
-          }
+          height={node.data.target.fields.file.details.image.height}
+          width={node.data.target.fields.file.details.image.width}
           alt={node.data.target.fields.title}
-          className='h-20 w-20'
+          className="h-20 w-20"
         />
       );
     },

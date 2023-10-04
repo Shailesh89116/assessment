@@ -9,24 +9,27 @@ interface productProps {
 }
 
 const ProductCard: React.FC<productProps> = ({ product }) => {
-  const { title, productId, quantity, productImg, embeddedVideo } = product.fields;
-
-  console.log(String(embeddedVideo.content[0].content[0].value));
-
-
+  const { title, productId, quantity, productImg, embeddedVideo } =
+    product.fields;
 
   return (
     <div className={styles.container}>
       <div className={styles.wrapper}>
-        <div>
-        <iframe width="560" height="315" src={embeddedVideo.content[0].content[0].value} title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
-        </div>
-        <div>
-          
-          <img className={styles.productImg} src={productImg.fields.file.url}/>
+        <div className={styles.iframe}>
+          <iframe
+            width="540"
+            height="315"
+            src={embeddedVideo.content[0].content[0].value}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
         </div>
         <div className={styles.product_title}>
-          <h3 className={styles.title}>{title}<p className={styles.productid}>({productId})</p></h3>
+          <h3 className={styles.title}>
+            {title}
+            <p className={styles.productid}>({productId})</p>
+          </h3>
           <div className={styles.quantity_container}>
             <p className={styles.quantity}>{quantity}</p>
           </div>

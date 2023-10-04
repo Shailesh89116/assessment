@@ -28,6 +28,46 @@ interface productProps{
   preview : any
 }
 
+
+export const getStaticProps: GetStaticProps<ProductProps> = async ({ params, preview = false }) => {
+  const cfClient = preview ? previewClient : client;
+
+  const { productId } = params as { productId: any };
+  const response = await cfClient.getEntries<any>({
+    content_type: 'products',
+    'fields.productId': productId || "",
+  });
+
+  if (!response?.items?.length) {
+    return {
+      redirect: {
+        destination: '/products',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      product: response?.items?.[0],
+      preview,
+      revalidate: 60,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths<any> = async () => {
+  const response = await client.getEntries<any>({ content_type: 'products' });
+  const paths = response.items.map((item) => ({
+    params: { productId: String(item.fields.productId || "") }
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
 const Product : React.FC<productProps> = ({product, preview}) => {
 
   console.log(product.fields);
@@ -71,45 +111,6 @@ const Product : React.FC<productProps> = ({product, preview}) => {
   )
 }
 
-
-export const getStaticProps: GetStaticProps<ProductProps> = async ({ params, preview = false }) => {
-  const cfClient = preview ? previewClient : client;
-
-  const { productId } = params as { productId: any };
-  const response = await cfClient.getEntries<any>({
-    content_type: 'products',
-    'fields.productId': productId || "",
-  });
-
-  if (!response?.items?.length) {
-    return {
-      redirect: {
-        destination: '/products',
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {
-      product: response?.items?.[0],
-      preview,
-      revalidate: 60,
-    },
-  };
-};
-
-export const getStaticPaths: GetStaticPaths<any> = async () => {
-  const response = await client.getEntries<any>({ content_type: 'products' });
-  const paths = response.items.map((item) => ({
-    params: { productId: String(item.fields.productId || "") }
-  }));
-
-  return {
-    paths,
-    fallback: true,
-  };
-};
 
 
 export default Product
